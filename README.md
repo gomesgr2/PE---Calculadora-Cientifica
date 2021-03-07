@@ -1,4 +1,4 @@
-# Calculadora Cientifica - Programação estruturada
+# UfabCalc
 Primeiro trabalho da matéria Programação estruturada, projeto voltado para consolidação dos conceitos básicos de programação. 
 
 ## Descrição 
