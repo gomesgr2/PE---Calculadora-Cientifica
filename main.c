@@ -1,12 +1,13 @@
 #include<stdio.h>
 #define MAX_TAMANHO_DA_PALAVRA 40
-#define NUMERO_DE_OPERACOES 3
+#define NUMERO_DE_OPERACOES 4
 
 int main(){
 
-    // Exemplos da lista de operações
+    int operacao;
 
-    char arr[NUMERO_DE_OPERACOES][MAX_TAMANHO_DA_PALAVRA] = { "Soma", "Subtracao", "Fatorial"};
+    // Exemplos da lista de operações 
+    char arr[NUMERO_DE_OPERACOES][MAX_TAMANHO_DA_PALAVRA] = { "Sair", "Soma", "Subtracao", "Fatorial"};
 
     // Exemplo da impressão inicial
 
@@ -18,6 +19,30 @@ int main(){
     }
 
     // Input 
+
+    scanf("%d",&operacao);
+
+
+    while(operacao != 0){
+        switch(operacao) {
+            case 1 :
+                // soma()
+                break;
+            case 2 :
+                // sub()
+                break;
+            case 3 :
+                // fat()
+                break;
+            default :
+                printf("Operação inválida !");
+                break;
+        }
+        scanf("%d",&operacao);
+        
+    }
+
+    printf("BYE BYE");
 
 
     
