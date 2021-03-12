@@ -17,8 +17,7 @@ int main(){
         printf("%d : %s\n",i, arr[i]);
     }
 
-    // Entradas 
-
+    // Input 
 
 
     
