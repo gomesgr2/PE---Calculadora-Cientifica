@@ -17,15 +17,15 @@ void lerhistorico() {
             if (historico[i][0] == 1) {
                 printf("[%d] Operacoes basicas, ", i + 1);
                     if (historico[i][1] == 1) {
-                        printf("soma, resultado = %.2f\n", historico[i][2]);
+                        printf("soma, resultado = %.4f\n", historico[i][2]);
                     } else if (historico[i][1] == 2) {
-                        printf("subtracao, resultado = %.2f\n", historico[i][2]);
+                        printf("subtracao, resultado = %.4f\n", historico[i][2]);
                     } else if (historico[i][1] == 3) {
-                        printf("multiplicacao, resultado = %.2f\n", historico[i][2]);
+                        printf("multiplicacao, resultado = %.4f\n", historico[i][2]);
                     } else if (historico[i][1] == 4) {
-                        printf("divisao, resultado = %.2f\n", historico[i][2]);
+                        printf("divisao, resultado = %.4f\n", historico[i][2]);
                     } else {
-                        printf("potenciacao, resultado = %.2f\n", historico[i][2]);
+                        printf("potenciacao, resultado = %.4f\n", historico[i][2]);
                     }
 
             } else if (historico[i][0] == 2) {
@@ -62,31 +62,31 @@ void operacoesbasicas() {
 
         switch (op) {
             case '+':
-                printf("%.2f %c %.2f = %.2f\n", a, op, b, (a + b));
+                printf("%.2f %c %.2f = %.4f\n", a, op, b, (a + b));
                 historico[cont][1] = 1;
                 historico[cont][2] = (a + b);
                 esc = 1;
                 break;
             case '-':
-                printf("%.2f %c %.2f = %.2f\n", a, op, b, (a - b));
+                printf("%.2f %c %.2f = %.4f\n", a, op, b, (a - b));
                 esc = 1;
                 historico[cont][1] = 2;
                 historico[cont][2] = (a - b);
                 break;
             case '*':
-                printf("%.2f %c %.2f = %.2f\n", a, op, b, (a*b));
+                printf("%.2f %c %.2f = %.4f\n", a, op, b, (a*b));
                 esc = 1;
                 historico[cont][1] = 3;
                 historico[cont][2] = (a*b);
                 break;
             case '/':
-                printf("%.2f %c %.2f = %.2f\n", a, op, b, (a/b));
+                printf("%.2f %c %.2f = %.4f\n", a, op, b, (a/b));
                 esc = 1;
                 historico[cont][1] = 4;
                 historico[cont][2] = (a/b);
                 break;
             case '^':
-                printf("%.2f %c %.2f = %.2f\n", a, op, b, pow(a,b));
+                printf("%.2f %c %.2f = %.4f\n", a, op, b, pow(a,b));
                 esc = 1;
                 historico[cont][1] = 5;
                 historico[cont][2] = pow(a,b);
