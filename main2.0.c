@@ -1,4 +1,4 @@
-#include<stdio.h>
+#include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
 #define MAX_TAMANHO_DA_PALAVRA 100
@@ -6,44 +6,12 @@
 #define NUMERO_DE_FIGURAS_PLANAS 7
 #define NUMERO_DE_FIGURAS_ESPACIAS 7
 #define PI 3.14159265358979323846
+#define INDICE_RESULTADO 3
 
 //Definir variáveis globais
-// [tipo operação] [operaçao] [Resultado]
-float historico[21][3];
+// [tipo operação] [operaçao1] [operação2] [Resultado]
+float historico[21][4];
 int cont = 0;
-
-
-//função ler histórico de operações
-void lerhistorico() {
-    
-    if (cont != 0) { 
-        for (int i = 0; i < cont; i++) {
-            
-            if (historico[i][0] == 1) {
-                printf("[%d] Operacoes basicas, ", i + 1);
-                    if (historico[i][1] == 1) {
-                        printf("soma, resultado = %.4f\n", historico[i][2]);
-                    } else if (historico[i][1] == 2) {
-                        printf("subtracao, resultado = %.4f\n", historico[i][2]);
-                    } else if (historico[i][1] == 3) {
-                        printf("multiplicacao, resultado = %.4f\n", historico[i][2]);
-                    } else if (historico[i][1] == 4) {
-                        printf("divisao, resultado = %.4f\n", historico[i][2]);
-                    } else {
-                        printf("potenciacao, resultado = %.4f\n", historico[i][2]);
-                    }
-
-            } else if (historico[i][0] == 2) {
-                printf("[%d] Funcoes matematicas, ", i + 1);
-
-            } else {
-                printf("[%d] Areas de figuras geometricas, ", i + 1);
-            }
-        }
-    } else {
-        printf("Nenhuma operacao realizada anteriormente\n");
-    }
-}
 
 //função criar linha para menus
 void criarlinha(int n) {
@@ -53,7 +21,56 @@ void criarlinha(int n) {
     printf("\n");
 }
 
+//função ler histórico de operações
+void lerhistorico() {
+    
+    if (cont != 0) { 
+        for (int i = 0; i < cont; i++) {
+            criarlinha(90);
+            if (historico[i][0] == 1) {
+                printf("[%d] Operacoes basicas, ", i + 1);
+                    if (historico[i][1] == 1) {
+                        printf("soma, resultado = %.4f\n", historico[i][INDICE_RESULTADO]);
+                    } else if (historico[i][1] == 2) {
+                        printf("subtracao, resultado = %.4f\n", historico[i][INDICE_RESULTADO]);
+                    } else if (historico[i][1] == 3) {
+                        printf("multiplicacao, resultado = %.4f\n", historico[i][INDICE_RESULTADO]);
+                    } else if (historico[i][1] == 4) {
+                        printf("divisao, resultado = %.4f\n", historico[i][INDICE_RESULTADO]);
+                    } else {
+                        printf("potenciacao, resultado = %.4f\n", historico[i][INDICE_RESULTADO]);
+                    }
 
+            } else if (historico[i][0] == 2) {
+                printf("[%d] Funcoes matematicas, ", i + 1);
+
+            } else {
+                printf("[%d] Areas de figuras geometricas, ", i + 1);
+                    if(historico[i][1] == 0) {
+                        printf("figuras planas, ");
+                            if (historico[i][2] == 1) {
+                                printf("area do quadrado, resultado: %.4f\n", historico[i][INDICE_RESULTADO]);
+                            } else if (historico[i][2] == 2) {
+                                printf("area do retangulo, resultado: %.4f\n", historico[i][INDICE_RESULTADO]);
+                            } else if (historico[i][2] == 3) {
+                                printf("area do triangulo, resultado: %.4f\n", historico[i][INDICE_RESULTADO]);
+                            } else if (historico[i][2] == 4) {
+                                printf("area do trapezio, resultado: %.4f\n", historico[i][INDICE_RESULTADO]);
+                            } else if (historico[i][2] == 5) {
+                                printf("area do circulo, resultado: %.4f\n", historico[i][INDICE_RESULTADO]);
+                            } else {
+                                printf("area do losango, resultado: %.4f\n", historico[i][INDICE_RESULTADO]);
+                            }
+                    } else {
+                        printf("figuras espaciais, ");
+                    }
+            }
+        }
+        criarlinha(90);
+    } else {
+        printf("Nenhuma operacao realizada anteriormente\n");
+    }
+}
 
 void imprimeListaDePalavras( char arr[][MAX_TAMANHO_DA_PALAVRA], int tam){
     
@@ -61,7 +78,7 @@ void imprimeListaDePalavras( char arr[][MAX_TAMANHO_DA_PALAVRA], int tam){
     criarlinha(34);
 
     for(int i =0; i < tam; i++  ){
-        printf("|(%d)             |%s\n",i, arr[i]);
+        printf("|(%d) %s \n",i, arr[i]);
         criarlinha(34);
     }
 
@@ -162,6 +179,11 @@ float calculoLosango(){
     return (diagonalMaior * diagonalMenor)/2;
 
 }
+
+void calculaFigurasespaciais() {
+
+}
+
 void calculaFigurasPlanas(){
     
     int operacao;
@@ -182,38 +204,56 @@ void calculaFigurasPlanas(){
 
    
     while(operacao != 0){
+        historico[cont][1] = 0;
         switch(operacao) {
             case 1 :
+                historico[cont][2] = 1;
                 resultado = calculoQuadrado();
+                historico[cont][INDICE_RESULTADO] = resultado;
                 break;
             case 2 :
+                historico[cont][2] = 2;
                 resultado = calculoTrianguloOuRetangulo(0);
+                historico[cont][INDICE_RESULTADO] = resultado;
                 break;
             case 3 :
+                historico[cont][2] = 3;
                 resultado = calculoTrianguloOuRetangulo(1);
+                historico[cont][INDICE_RESULTADO] = resultado;
                 break;
             
             case 4:
+                historico[cont][2] = 4;
                 resultado = calculoTrapezio();
+                historico[cont][INDICE_RESULTADO] = resultado;
                 break;
                
             case 5 :
+                historico[cont][2] = 5;
                 resultado = calculoCirculo();
+                historico[cont][INDICE_RESULTADO] = resultado;
                 break;
 
             case 6 :
+                historico[cont][2] = 6;
                 resultado = calculoLosango();
+                historico[cont][INDICE_RESULTADO] = resultado;
                 break;
             default :
                 printf("Operação inválida !");
+                if (cont != 0) {
+                    cont--;
+                }
                 break;
-        } 
+        }
         imprimeValorDaArea(listaDeFigurasPlanas, resultado, operacao);
         imprimeListaDePalavras(listaDeFigurasPlanas, NUMERO_DE_FIGURAS_PLANAS );
         // itoa(resultadoString, resultado, MAX_TAMANHO_DA_PALAVRA);
         
         scanf("%d",&operacao);
-        
+        if (operacao != 0){
+            cont++;
+        }
         }
 
     return;
@@ -242,7 +282,7 @@ void defineCalculoDeFiguras() {
             break;
 
         case 1 : 
-            // 
+            calculaFigurasespaciais();
             break;
         
         default :
@@ -256,51 +296,75 @@ void operacoesbasicas() {
     float a, b, esc = 0;
     char op;
 
-    while (esc == 0) {
-        printf("Digite o primeiro numero:\n");
-            scanf("%f", &a);
-        printf("Digite a operacao (+, -, *, /, ^): \n");
+    printf("Digite o primeiro numero:\n");
+    scanf("%f", &a);
+    printf("Digite a operacao (+, -, *, /, ^): \n");
             scanf(" %c", &op);
-        printf("Digite o segundo numero:\n");
+    printf("Digite o segundo numero:\n");
             scanf("%f", &b);
 
-        switch (op) {
+    while (1 == 1) {
+              switch (op) {
 
-            case '+':
-                printf("%.2f %c %.2f = %.4f\n", a, op, b, (a + b));
-                historico[cont][1] = 1;
-                historico[cont][2] = (a + b);
-                esc = 1;
-                break;
-            case '-':
-                printf("%.2f %c %.2f = %.4f\n", a, op, b, (a - b));
-                esc = 1;
-                historico[cont][1] = 2;
-                historico[cont][2] = (a - b);
-                break;
-            case '*':
-                printf("%.2f %c %.2f = %.4f\n", a, op, b, (a*b));
-                esc = 1;
-                historico[cont][1] = 3;
-                historico[cont][2] = (a*b);
-                break;
-            case '/':
-                printf("%.2f %c %.2f = %.4f\n", a, op, b, (a/b));
-                esc = 1;
-                historico[cont][1] = 4;
-                historico[cont][2] = (a/b);
-                break;
-            case '^':
-                printf("%.2f %c %.2f = %.4f\n", a, op, b, potencia(a,b));
-                esc = 1;
-                historico[cont][1] = 5;
-                historico[cont][2] = potencia(a,b);
-                break;
-            default:
-                printf("Operacao invalida! Digite novamente\n");
-                break;
+                case '+':
+                    criarlinha(20);
+                    printf("%.2f %c %.2f = %.4f\n", a, op, b, (a + b));
+                    criarlinha(20);
+                    a = a + b;
+                    historico[cont][1] = 1;
+                    historico[cont][INDICE_RESULTADO] = a;
+                    cont++;
+                    break;
+                case '-':
+                    criarlinha(20);
+                    printf("%.2f %c %.2f = %.4f\n", a, op, b, (a - b));
+                    criarlinha(20);
+                    a = a - b;
+                    historico[cont][1] = 2;
+                    historico[cont][INDICE_RESULTADO] = a;
+                    cont++;
+                    break;
+                case '*':
+                    criarlinha(20);
+                    printf("%.2f %c %.2f = %.4f\n", a, op, b, (a*b));
+                    criarlinha(20);
+                    a = (a*b);
+                    historico[cont][1] = 3;
+                    historico[cont][INDICE_RESULTADO] = a;
+                    cont++;
+                    break;
+                case '/':
+                    criarlinha(20);
+                    printf("%.2f %c %.2f = %.4f\n", a, op, b, (a/b));
+                    criarlinha(20);
+                    a = (a/b);
+                    historico[cont][1] = 4;
+                    historico[cont][INDICE_RESULTADO] = a;
+                    cont++;
+                    break;
+                case '^':
+                    criarlinha(20);
+                    printf("%.2f %c %.2f = %.4f\n", a, op, b, potencia(a,b));
+                    criarlinha(20);
+                    a = potencia(a,b);
+                    historico[cont][1] = 5;
+                    historico[cont][INDICE_RESULTADO] = a;
+                    cont++;
+                    break;
+                default:
+                    printf("Operacao invalida! Digite novamente\n");
+                    break;
 
-        }
+            }
+            printf("Digite a operacao (+, -, *, /, ^): \nPara sair, digite 's'\n");
+                scanf(" %c", &op);
+                if ((op == 's') || (op == 'S')) {
+                    break;
+                } else if ((op == '+') || (op == '-') || (op == '*') || (op == '/') || (op == '^')) {
+                    historico[cont][0] = 1;
+                    printf("Digite o proximo numero:\n");
+                        scanf("%f", &b);
+                }
     }
 }
 
@@ -332,7 +396,7 @@ int main(){
     scanf("%d",&escolha);
 
 
-    while(escolha != 5){
+    while(escolha != 4){
         if (cont >= 20) {
             printf("Mais de 20 operacoes realizadas! O historico foi apagado.\n");
             cont = 0;
@@ -341,7 +405,6 @@ int main(){
             case 0:
                 historico[cont][0] = 1;
                 operacoesbasicas();
-                cont++;
                 break;
             case 1:
                 historico[cont][0] = 2;
@@ -374,9 +437,4 @@ int main(){
     }
 
     printf("BYE BYE");
-
-
-    
-
-    return 0;
 }
