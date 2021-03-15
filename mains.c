@@ -11,7 +11,6 @@
 // [tipo operação] [operaçao] [Resultado]
 float historico[21][3];
 int cont = 0;
-char historicoTeste[21][MAX_TAMANHO_DA_PALAVRA];
 
 
 //função ler histórico de operações
@@ -212,9 +211,6 @@ void calculaFigurasPlanas(){
         imprimeValorDaArea(listaDeFigurasPlanas, resultado, operacao);
         imprimeListaDePalavras(listaDeFigurasPlanas, NUMERO_DE_FIGURAS_PLANAS );
         // itoa(resultadoString, resultado, MAX_TAMANHO_DA_PALAVRA);
-        historicoTeste[cont][MAX_TAMANHO_DA_PALAVRA] ="Figuras geometricas, Calculo da Area do ";
-        cont ++;
-
         
         scanf("%d",&operacao);
         
@@ -269,14 +265,11 @@ void operacoesbasicas() {
             scanf("%f", &b);
 
         switch (op) {
-            char resultado[MAX_TAMANHO_DA_PALAVRA];
 
             case '+':
                 printf("%.2f %c %.2f = %.4f\n", a, op, b, (a + b));
                 historico[cont][1] = 1;
                 historico[cont][2] = (a + b);
-                sprintf(resultado, "%f", a+b );
-                historicoTeste[cont][MAX_TAMANHO_DA_PALAVRA] = strcmp("Operacao Basica, (a + b) =", resultado);
                 esc = 1;
                 break;
             case '-':
@@ -284,33 +277,24 @@ void operacoesbasicas() {
                 esc = 1;
                 historico[cont][1] = 2;
                 historico[cont][2] = (a - b);
-                sprintf(resultado, "%f", a+b );
-                historicoTeste[cont][MAX_TAMANHO_DA_PALAVRA] = strcmp("Operacao Basica, (a - b) =", resultado);
-
                 break;
             case '*':
                 printf("%.2f %c %.2f = %.4f\n", a, op, b, (a*b));
                 esc = 1;
                 historico[cont][1] = 3;
                 historico[cont][2] = (a*b);
-                sprintf(resultado, "%f", a*b );
-                historicoTeste[cont][MAX_TAMANHO_DA_PALAVRA] = strcmp("Operacao Basica, (a * b) =", resultado);
                 break;
             case '/':
                 printf("%.2f %c %.2f = %.4f\n", a, op, b, (a/b));
                 esc = 1;
                 historico[cont][1] = 4;
                 historico[cont][2] = (a/b);
-                sprintf(resultado, "%f", a/b );
-                historicoTeste[cont][MAX_TAMANHO_DA_PALAVRA] = strcmp("Operacao Basica, (a / b) =", resultado);
                 break;
             case '^':
                 printf("%.2f %c %.2f = %.4f\n", a, op, b, potencia(a,b));
                 esc = 1;
                 historico[cont][1] = 5;
                 historico[cont][2] = potencia(a,b);
-                sprintf(resultado, "%f", a/b );
-                historicoTeste[cont][MAX_TAMANHO_DA_PALAVRA] = strcmp("Operacao Basica, (a / b) =", resultado);
                 break;
             default:
                 printf("Operacao invalida! Digite novamente\n");
@@ -324,15 +308,6 @@ void funcoesmatematicas() {
     printf("2");
 }
 
-
-void lerhistoricoTeste(){
-
-    for(int i=0;i < cont;i++){
-        printf("%s\n", historicoTeste[i]);
-
-    }
-
-}
 
 
 
@@ -365,19 +340,18 @@ int main(){
         switch(escolha) {
             case 0:
                 historico[cont][0] = 1;
-                historicoTeste[cont][MAX_TAMANHO_DA_PALAVRA] = "Operacao basica";
                 operacoesbasicas();
-                // cont++;
+                cont++;
                 break;
             case 1:
                 historico[cont][0] = 2;
                 funcoesmatematicas();
-                // cont++;
+                cont++;
                 break;
             case 2:
                 historico[cont][0] = 3;
                 defineCalculoDeFiguras();
-                // cont++;
+                cont++;
                 break;
             case 3:
                 printf("[1] Apagar historico de operacoes\n[2] Ler historico\n");
@@ -385,7 +359,7 @@ int main(){
                 if (aux == 1) {
                     cont = 0;
                 } else {
-                    lerhistorico(cont);
+                    lerhistorico();
                 }
                 break;
             case 4:
