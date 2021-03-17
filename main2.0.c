@@ -260,7 +260,7 @@ float AreaPrisma()
 
 float AreaPiramide()
 {
-    float n, k, a, m, areaLateral,areaBase, AreaTotal, base,l, h, AreaBase;
+    float n, a, m, areaLateral,areaBase, AreaTotal, base,l, h, AreaBase;
 
     printf("Digite o número de lados: \n");
     scanf("%f", &n);
@@ -312,16 +312,13 @@ float AreaPiramide()
 
 
 
-    printf("Digite o numero de laterais: \n");
-    scanf("%f", &k);
-
-    printf("Digite o valor da apótema: \n");
+        printf("Digite o valor da apótema: \n");
     scanf("%f", &a);
 
     printf("Digite o valor da aresta da base: \n");
     scanf("%f", &m);
 
-    areaLateral = k*((a*m)/2);
+    areaLateral = n*((a*m)/2);
 
     AreaTotal = areaLateral + AreaBase;
 
