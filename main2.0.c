@@ -633,11 +633,97 @@ void operacoesbasicas() {
     }
 }
 
-void funcoesmatematicas() {
-    printf("2");
+void funcoesmatematicas ()
+{
+  int a, b, esc = 0;
+  char op;
+
+  printf
+    ("Digite a operacao (1: MMC, 2: MDC, 3: Fatorial): \n");
+  scanf (" %c", &op);
+
+  while (1 == 1)
+    {
+      switch (op)
+	{
+
+	case '1':
+	  criarlinha (20);
+	  printf ("Digite o primeiro numero:\n");
+	  scanf ("%d", &a);
+	  printf ("Digite o segundo numero:\n");
+	  scanf ("%d", &b);
+
+	  int cont, i, mmc;
+	  for (i = 2; i <= b; i++)
+	    {
+	      cont = a * i;
+	      if ((cont % b) == 0)
+		{
+		  mmc = cont;
+		  i = b + 1;
+		}
+	      printf ("O mmc C): %d\n", mmc);
+	    }
+
+	  historico[cont][1] = 1;
+	  historico[cont][INDICE_RESULTADO] = a;
+	  cont++;
+	  break;
+
+	case '2':
+	  criarlinha (20);
+	  printf ("Digite o primeiro numero:\n");
+	  scanf ("%d", &a);
+	  printf ("Digite o segundo numero:\n");
+	  scanf ("%d", &b);
+
+	  while (a != b)
+	    {
+	      if (a > b)
+		{
+		  a = a - b;
+		}
+	      else
+		b = b - a;
+	    }
+	
+      printf ("O mC!ximo divisor comum C): %d \n", a);
+
+      historico[cont][1] = 1;
+      historico[cont][INDICE_RESULTADO] = a;
+      cont++;
+      break;
+
+case '3':
+      criarlinha (20);
+      int f, a;
+      printf ("Digite o numero: ");
+      scanf ("%d", &a);
+      for (f = 1; a > 1; a = a - 1)
+	f = f * a;
+      printf ("O fatorial eh: %d", f);
+
+      historico[cont][1] = 1;
+      historico[cont][INDICE_RESULTADO] = a;
+      cont++;
+      break;
+
 }
-
-
+    }
+  printf
+    ("1: MMC, 2: MDC, 3: Fatorial: \nPara sair, digite 's'\n");
+  scanf (" %c", &op);
+  if ((op == 's') || (op == 'S'))
+    {
+    }
+  else if ((op == '1') || (op == '2') || (op == '3'))
+    {
+      historico[cont][0] = 1;
+      printf ("Digite o proximo numero:\n");
+      scanf ("%d", &b);
+    }
+}
 
 
 int main(){
