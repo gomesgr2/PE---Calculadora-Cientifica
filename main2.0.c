@@ -180,9 +180,277 @@ float calculoLosango(){
 
 }
 
-void calculaFigurasespaciais() {
+float AreaCubo()
+{
+    float A, areacubo;
+
+    printf("Digite o valor de uma das dimensoes: \n");
+    scanf("%f", &A);
+
+    areacubo = potencia(A,3);
+
+    return areacubo;
+}
+
+float AreaPrisma()
+{
+     float n, lado, altura, areaLateral, areaP, AreaTotal, base,l, h, AreaBase;
+
+     printf("Digite o número de lados: \n");
+     scanf("%f", &n);
+     if (n == 3)
+      {
+        printf("Digite o valor da base do triangulo: \n");
+        scanf("%f", &base);
+
+        printf("Digite o valor da altura do triangulo: \n");
+        scanf("%f", &h);
+
+        AreaBase= (base*h)/2;
+
+       }
+
+        else if (n == 4)
+        {
+         printf("Digite o valor da base quadrilatero: \n");
+         scanf("%f", &base);
+
+         printf("Digite o valor da altura do quadrilatero: \n");
+         scanf("%f", &h);
+
+         AreaBase= (base*h);
+
+        }
+
+          else if (n == 5)
+          {
+            printf("Digite o valor da lado do pentagono: \n");
+            scanf("%f", &l);
+
+            printf("Digite o valor da altura do pentagono: \n");
+            scanf("%f", &h);
+
+            AreaBase= ((5*l)*h);
+
+          }
+
+            else if (n == 6)
+            {
+             printf("Digite o valor da lado hexagono: \n");
+             scanf("%f", &l);
+
+             AreaBase= ((3*(l*l))*(sqrt(3)))/2;
+
+            }
+
+
+     printf("Lado do paralelogramo: \n");
+     scanf("%f", &lado);
+
+     printf("Altura do paralelogramo: \n");
+     scanf("%f", &altura);
+
+     areaP= lado*altura;
+     areaLateral= n*areaP;
+
+     AreaTotal = areaLateral + (2* AreaBase);
+
+     return AreaTotal;
+}
+
+float AreaPiramide()
+{
+    float n, k, a, m, areaLateral,areaBase, AreaTotal, base,l, h, AreaBase;
+
+    printf("Digite o número de lados: \n");
+    scanf("%f", &n);
+      if (n == 3)
+      {
+        printf("Digite o valor da base do triangulo: \n");
+        scanf("%f", &base);
+
+        printf("Digite o valor da altura do triangulo: \n");
+        scanf("%f", &h);
+
+        AreaBase= (base*h)/2;
+
+       }
+
+        else if (n == 4)
+        {
+         printf("Digite o valor da base quadrilatero: \n");
+         scanf("%f", &base);
+
+         printf("Digite o valor da altura do quadrilatero: \n");
+         scanf("%f", &h);
+
+         AreaBase= (base*h);
+
+        }
+
+          else if (n == 5)
+          {
+            printf("Digite o valor da lado do pentagono: \n");
+            scanf("%f", &l);
+
+            printf("Digite o valor da altura do pentagono: \n");
+            scanf("%f", &h);
+
+            AreaBase= ((5*l)*h);
+
+          }
+
+            else if (n == 6)
+            {
+             printf("Digite o valor da lado hexagono: \n");
+             scanf("%f", &l);
+
+             AreaBase= ((3*(l*l))*(sqrt(3)))/2;
+
+            }
+
+
+
+
+    printf("Digite o numero de laterais: \n");
+    scanf("%f", &k);
+
+    printf("Digite o valor da apótema: \n");
+    scanf("%f", &a);
+
+    printf("Digite o valor da aresta da base: \n");
+    scanf("%f", &m);
+
+    areaLateral = k*((a*m)/2);
+
+    AreaTotal = areaLateral + AreaBase;
+
+    return AreaTotal;
 
 }
+
+float AreaCilindro()
+{
+    float raio, altura, AreaTotal;
+
+    printf("Digite o valor do raio");
+    scanf("%f", &raio);
+
+    printf("Digite o valor do altura");
+    scanf("%f", &altura);
+
+    AreaTotal = 2*PI*(raio*(raio + altura));
+
+    return AreaTotal;
+
+}
+
+float AreaEsfera()
+{
+    float raio, AreaTotal;
+
+    printf("Digite o valor do raio: \n");
+    scanf("%f", &raio);
+
+    AreaTotal = 4*PI*(potencia(raio,2));
+
+    return AreaTotal;
+}
+float AreaCone()
+{
+    float altura, raio, geratriz, AreaTotal;
+
+    printf("Digite o valor da altura: \n");
+    scanf("%f", &altura);
+
+    printf("Digite o valor do raio: \n");
+    scanf("%f", &raio);
+
+    printf("Digite o valor da geratriz: \n");
+    scanf("%f", &geratriz);
+
+    AreaTotal= PI*raio*(geratriz+raio);
+
+    return AreaTotal;
+}
+
+
+void calculaFigurasespaciais() {
+    int operacao;
+    float resultado;
+    char resultadoString[MAX_TAMANHO_DA_PALAVRA];
+
+    char listaDeFigurasEspaciais[NUMERO_DE_FIGURAS_ESPACIAS][MAX_TAMANHO_DA_PALAVRA] = {"Sair","Cubo", "Cone", "Prisma", "Piramide", "Esfera/Superficie Esferica", "Cilindro"};
+
+
+    printf("Voce escolheu o calculo de Figuras Espaciais!\n");
+    criarlinha(34);
+
+
+    imprimeListaDePalavras(listaDeFigurasEspaciais, NUMERO_DE_FIGURAS_ESPACIAS);
+
+    scanf("%d", &operacao);
+
+        while(operacao != 0){
+        historico[cont][1] = 0;
+        switch(operacao) {
+            case 1 :
+                historico[cont][2] = 1;
+                resultado = AreaCubo();
+                historico[cont][INDICE_RESULTADO] = resultado;
+                break;
+            case 2 :
+                historico[cont][2] = 2;
+                resultado = AreaCone(0);
+                historico[cont][INDICE_RESULTADO] = resultado;
+                break;
+            case 3 :
+                historico[cont][2] = 3;
+                resultado = AreaPrisma(1);
+                historico[cont][INDICE_RESULTADO] = resultado;
+                break;
+
+            case 4:
+                historico[cont][2] = 4;
+                resultado = AreaPiramide();
+                historico[cont][INDICE_RESULTADO] = resultado;
+                break;
+
+            case 5 :
+                historico[cont][2] = 5;
+                resultado = AreaEsfera();
+                historico[cont][INDICE_RESULTADO] = resultado;
+                break;
+
+            case 6 :
+                historico[cont][2] = 6;
+                resultado = AreaCilindro();
+                historico[cont][INDICE_RESULTADO] = resultado;
+                break;
+            default :
+                printf("Operação inválida !");
+                if (cont != 0) {
+                    cont--;
+                }
+                break;
+        }
+        imprimeValorDaArea(listaDeFigurasEspaciais, resultado, operacao);
+        imprimeListaDePalavras(listaDeFigurasEspaciais, NUMERO_DE_FIGURAS_ESPACIAS );
+
+
+        scanf("%d",&operacao);
+        if (operacao != 0){
+            cont++;
+        }
+        }
+
+    return;
+
+}
+    
+
+
+ 
 
 void calculaFigurasPlanas(){
     
