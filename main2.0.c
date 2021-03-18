@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
+#include <math.h>
 #define MAX_TAMANHO_DA_PALAVRA 100
 #define NUMERO_DE_OPERACOES 5
 #define NUMERO_DE_FIGURAS_PLANAS 7
@@ -58,11 +59,24 @@ void lerhistorico() {
                                 printf("area do trapezio, resultado: %.4f\n", historico[i][INDICE_RESULTADO]);
                             } else if (historico[i][2] == 5) {
                                 printf("area do circulo, resultado: %.4f\n", historico[i][INDICE_RESULTADO]);
-                            } else {
+                            } else if (historico[i][2] == 6){
                                 printf("area do losango, resultado: %.4f\n", historico[i][INDICE_RESULTADO]);
                             }
                     } else {
                         printf("figuras espaciais, ");
+                            if(historico[i][2] == 1) {
+                                printf("area do cubo, resultado: %.4f\n", historico[i][INDICE_RESULTADO]);
+                            } else if (historico[i][2] == 2) {
+                                printf("area do cone, resultado: %.4f\n", historico[i][INDICE_RESULTADO]);
+                            } else if (historico[i][2] == 3) {
+                                printf("area do prisma, resultado: %.4f\n", historico[i][INDICE_RESULTADO]); 
+                            } else if (historico[i][2] == 4) {
+                                printf("area da piramide, resultado: %.4f\n", historico[i][INDICE_RESULTADO]); 
+                            } else if (historico[i][2] == 5) {
+                                printf("area da esfera, resultado: %.4f\n", historico[i][INDICE_RESULTADO]); 
+                            } else if (historico[i][2] == 6){
+                                printf("area do cilindro, resultado: %.4f\n", historico[i][INDICE_RESULTADO]); 
+                            }
                     }
             }
         }
@@ -330,10 +344,10 @@ float AreaCilindro()
 {
     float raio, altura, AreaTotal;
 
-    printf("Digite o valor do raio");
+    printf("Digite o valor do raio\n");
     scanf("%f", &raio);
 
-    printf("Digite o valor do altura");
+    printf("Digite o valor do altura\n");
     scanf("%f", &altura);
 
     AreaTotal = 2*PI*(raio*(raio + altura));
@@ -389,7 +403,7 @@ void calculaFigurasespaciais() {
     scanf("%d", &operacao);
 
         while(operacao != 0){
-        historico[cont][1] = 0;
+        historico[cont][1] = 1;
         switch(operacao) {
             case 1 :
                 historico[cont][2] = 1;
@@ -440,7 +454,7 @@ void calculaFigurasespaciais() {
             cont++;
         }
         }
-
+        cont++;
     return;
 
 }
@@ -520,6 +534,7 @@ void calculaFigurasPlanas(){
             cont++;
         }
         }
+        cont++;
 
     return;
 
@@ -700,8 +715,9 @@ case '3':
       int f, a;
       printf ("Digite o numero: ");
       scanf ("%d", &a);
-      for (f = 1; a > 1; a = a - 1)
-	f = f * a;
+      for (f = 1; a > 1; a = a - 1) {
+	    f = f * a;
+      }
       printf ("O fatorial eh: %d", f);
 
       historico[cont][1] = 1;
@@ -760,12 +776,10 @@ int main(){
             case 1:
                 historico[cont][0] = 2;
                 funcoesmatematicas();
-                cont++;
                 break;
             case 2:
                 historico[cont][0] = 3;
                 defineCalculoDeFiguras();
-                cont++;
                 break;
             case 3:
                 printf("[1] Apagar historico de operacoes\n[2] Ler historico\n");
