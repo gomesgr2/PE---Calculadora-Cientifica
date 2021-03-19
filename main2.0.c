@@ -6,13 +6,15 @@
 #define NUMERO_DE_OPERACOES 5
 #define NUMERO_DE_FIGURAS_PLANAS 7
 #define NUMERO_DE_FIGURAS_ESPACIAS 7
+#define NUMERO_DE_FUNCOES_MATEMATICAS 3
+#define NUMERO_DE_OPERACOES_BASICAS 6
 #define PI 3.14159265358979323846
 #define INDICE_RESULTADO 3
 
 //Definir variáveis globais
 // [tipo operação] [operaçao1] [operação2] [Resultado]
 float historico[21][4];
-int cont = 0;
+int cont = -1;
 
 //função criar linha para menus
 void criarlinha(int n) {
@@ -25,10 +27,10 @@ void criarlinha(int n) {
 //função ler histórico de operações
 void lerhistorico() {
     
-    if (cont != 0) { 
-        for (int i = 0; i < cont; i++) {
+    if (cont != -1) { 
+        for (int i = 0; i <= cont; i++) {
             criarlinha(90);
-            if (historico[i][0] == 1) {
+            if (historico[i][0] == 0) {
                 printf("[%d] Operacoes basicas, ", i + 1);
                     if (historico[i][1] == 1) {
                         printf("soma, resultado = %.4f\n", historico[i][INDICE_RESULTADO]);
@@ -38,12 +40,21 @@ void lerhistorico() {
                         printf("multiplicacao, resultado = %.4f\n", historico[i][INDICE_RESULTADO]);
                     } else if (historico[i][1] == 4) {
                         printf("divisao, resultado = %.4f\n", historico[i][INDICE_RESULTADO]);
-                    } else {
+                    } else if (historico[i][1] == 5) {
                         printf("potenciacao, resultado = %.4f\n", historico[i][INDICE_RESULTADO]);
+                    } else if (historico[i][1] == 6){
+                        printf("raiz quadrada, resultado = %.4f\n", historico[i][INDICE_RESULTADO]);
                     }
 
-            } else if (historico[i][0] == 2) {
+            } else if (historico[i][0] == 1) {
                 printf("[%d] Funcoes matematicas, ", i + 1);
+                    if (historico[i][1] == 0) {
+                        printf("MMC, resultado: %.4f\nf", historico[i][INDICE_RESULTADO]);
+                    } else if (historico[i][1] == 1) {
+                        printf("MDC, resultado: %.4f\n", historico[i][INDICE_RESULTADO]);
+                    } else if (historico[i][1] == 2) {
+                        printf("Fatorial, resultado: %.4f\n", historico[i][INDICE_RESULTADO]);
+                    }
 
             } else {
                 printf("[%d] Areas de figuras geometricas, ", i + 1);
@@ -93,6 +104,37 @@ void imprimeListaDePalavras( char arr[][MAX_TAMANHO_DA_PALAVRA], int tam){
 
     for(int i =0; i < tam; i++  ){
         printf("|(%d) %s \n",i, arr[i]);
+        criarlinha(34);
+    }
+
+}
+
+void imprimeListaDePalavrasOPBasica(char arr[][MAX_TAMANHO_DA_PALAVRA], int tam){
+    
+    printf("\nEscolha o tipo de operacao desejada:\n");
+    criarlinha(34);
+    for (int i = 0; i < tam; i++) {
+        switch(i) {
+            case 0:
+                printf("[+] ");
+                break;
+            case 1:
+                printf("[-] ");
+                break;
+            case 2:
+                printf("[*] ");
+                break;
+            case 3:
+                printf("[/] ");
+                break;
+            case 4:
+                printf("[^] ");
+                break;
+            case 5:
+                printf("[r] ");
+                break;
+        }
+        printf("%s\n", arr[i]);
         criarlinha(34);
     }
 
@@ -402,47 +444,62 @@ void calculaFigurasespaciais() {
 
     scanf("%d", &operacao);
 
+
         while(operacao != 0){
-        historico[cont][1] = 1;
         switch(operacao) {
             case 1 :
-                historico[cont][2] = 1;
                 resultado = AreaCubo();
+                cont++;
+                historico[cont][0] = 2;
+                historico[cont][1] = 1;
+                historico[cont][2] = 1;
                 historico[cont][INDICE_RESULTADO] = resultado;
                 break;
             case 2 :
-                historico[cont][2] = 2;
                 resultado = AreaCone(0);
+                cont++;
+                historico[cont][0] = 2;
+                historico[cont][1] = 1;
+                historico[cont][2] = 2;
                 historico[cont][INDICE_RESULTADO] = resultado;
                 break;
             case 3 :
-                historico[cont][2] = 3;
                 resultado = AreaPrisma(1);
-                historico[cont][INDICE_RESULTADO] = resultado;
+                    cont++;
+                    historico[cont][0] = 2;
+                    historico[cont][1] = 1;
+                    historico[cont][2] = 3;
+                    historico[cont][INDICE_RESULTADO] = resultado;
                 break;
 
             case 4:
-                historico[cont][2] = 4;
                 resultado = AreaPiramide();
+                cont++;
+                historico[cont][0] = 2;
+                historico[cont][1] = 1;
+                historico[cont][2] = 4;
                 historico[cont][INDICE_RESULTADO] = resultado;
                 break;
 
             case 5 :
-                historico[cont][2] = 5;
                 resultado = AreaEsfera();
+                cont++;
+                historico[cont][0] = 2;
+                historico[cont][1] = 1;
+                historico[cont][2] = 5;
                 historico[cont][INDICE_RESULTADO] = resultado;
                 break;
 
             case 6 :
-                historico[cont][2] = 6;
                 resultado = AreaCilindro();
+                cont++;
+                historico[cont][0] = 2;
+                historico[cont][1] = 1;
+                historico[cont][2] = 6;
                 historico[cont][INDICE_RESULTADO] = resultado;
                 break;
             default :
                 printf("Operação inválida !");
-                if (cont != 0) {
-                    cont--;
-                }
                 break;
         }
         imprimeValorDaArea(listaDeFigurasEspaciais, resultado, operacao);
@@ -450,11 +507,8 @@ void calculaFigurasespaciais() {
 
 
         scanf("%d",&operacao);
-        if (operacao != 0){
-            cont++;
+
         }
-        }
-        cont++;
     return;
 
 }
@@ -483,46 +537,61 @@ void calculaFigurasPlanas(){
 
    
     while(operacao != 0){
-        historico[cont][1] = 0;
         switch(operacao) {
             case 1 :
-                historico[cont][2] = 1;
                 resultado = calculoQuadrado();
+                cont++;
+                historico[cont][0] = 2;
+                historico[cont][1] = 0;
+                historico[cont][2] = 1;
                 historico[cont][INDICE_RESULTADO] = resultado;
                 break;
             case 2 :
-                historico[cont][2] = 2;
                 resultado = calculoTrianguloOuRetangulo(0);
+                cont++;
+                historico[cont][0] = 2;
+                historico[cont][1] = 0;
+                historico[cont][2] = 3;
                 historico[cont][INDICE_RESULTADO] = resultado;
                 break;
             case 3 :
-                historico[cont][2] = 3;
                 resultado = calculoTrianguloOuRetangulo(1);
+                cont++;
+                historico[cont][0] = 2;
+                historico[cont][1] = 0;
+                historico[cont][2] = 2;
                 historico[cont][INDICE_RESULTADO] = resultado;
                 break;
             
             case 4:
-                historico[cont][2] = 4;
                 resultado = calculoTrapezio();
+                cont++;
+                historico[cont][0] = 2;
+                historico[cont][1] = 0;
+                historico[cont][2] = 4;
                 historico[cont][INDICE_RESULTADO] = resultado;
                 break;
                
             case 5 :
-                historico[cont][2] = 5;
                 resultado = calculoCirculo();
+                cont++;
+                historico[cont][0] = 2;
+                historico[cont][1] = 0;
+                historico[cont][2] = 5;
                 historico[cont][INDICE_RESULTADO] = resultado;
                 break;
 
             case 6 :
-                historico[cont][2] = 6;
                 resultado = calculoLosango();
+                cont++;
+                historico[cont][0] = 2;
+                historico[cont][1] = 0;
+                historico[cont][2] = 6;
                 historico[cont][INDICE_RESULTADO] = resultado;
                 break;
             default :
                 printf("Operação inválida !");
-                if (cont != 0) {
-                    cont--;
-                }
+
                 break;
         }
         imprimeValorDaArea(listaDeFigurasPlanas, resultado, operacao);
@@ -530,11 +599,7 @@ void calculaFigurasPlanas(){
         // itoa(resultadoString, resultado, MAX_TAMANHO_DA_PALAVRA);
         
         scanf("%d",&operacao);
-        if (operacao != 0){
-            cont++;
         }
-        }
-        cont++;
 
     return;
 
@@ -575,76 +640,103 @@ void defineCalculoDeFiguras() {
 void operacoesbasicas() {
     float a, b, esc = 0;
     char op;
+    char listadeoperacoesbasicas[NUMERO_DE_OPERACOES_BASICAS][MAX_TAMANHO_DA_PALAVRA] = {"Soma", "Subtracao", "Multiplicacao", "Divisao", "Potenciacao", "Raiz quadrada"};
 
     printf("Digite o primeiro numero:\n");
     scanf("%f", &a);
-    printf("Digite a operacao (+, -, *, /, ^): \n");
-            scanf(" %c", &op);
-    printf("Digite o segundo numero:\n");
-            scanf("%f", &b);
-
+    imprimeListaDePalavrasOPBasica(listadeoperacoesbasicas, NUMERO_DE_OPERACOES_BASICAS);
+    scanf(" %c", &op);
+    
     while (1 == 1) {
               switch (op) {
 
                 case '+':
-                    criarlinha(20);
+                    printf("Digite o segundo numero:\n");
+                    scanf("%f", &b);
+                    criarlinha(34);
                     printf("%.2f %c %.2f = %.4f\n", a, op, b, (a + b));
-                    criarlinha(20);
+                    criarlinha(34);
                     a = a + b;
+                    cont++;
+                    historico[cont][0] = 0;
                     historico[cont][1] = 1;
                     historico[cont][INDICE_RESULTADO] = a;
-                    cont++;
+
                     break;
                 case '-':
-                    criarlinha(20);
+                    printf("Digite o segundo numero:\n");
+                    scanf("%f", &b);
+                    criarlinha(34);
                     printf("%.2f %c %.2f = %.4f\n", a, op, b, (a - b));
-                    criarlinha(20);
+                    criarlinha(34);
                     a = a - b;
+                    cont++;
+                    historico[cont][0] = 0;
                     historico[cont][1] = 2;
                     historico[cont][INDICE_RESULTADO] = a;
-                    cont++;
+
                     break;
                 case '*':
-                    criarlinha(20);
+                    printf("Digite o segundo numero:\n");
+                    scanf("%f", &b);
+                    criarlinha(34);
                     printf("%.2f %c %.2f = %.4f\n", a, op, b, (a*b));
-                    criarlinha(20);
+                    criarlinha(34);
                     a = (a*b);
+                    cont++;
+                    historico[cont][0] = 0;
                     historico[cont][1] = 3;
                     historico[cont][INDICE_RESULTADO] = a;
-                    cont++;
+
                     break;
                 case '/':
-                    criarlinha(20);
+                    printf("Digite o segundo numero:\n");
+                    scanf("%f", &b);
+                    criarlinha(34);
                     printf("%.2f %c %.2f = %.4f\n", a, op, b, (a/b));
-                    criarlinha(20);
+                    criarlinha(34);
                     a = (a/b);
+                    cont++;
+                    historico[cont][0] = 0;
                     historico[cont][1] = 4;
                     historico[cont][INDICE_RESULTADO] = a;
-                    cont++;
+
                     break;
                 case '^':
-                    criarlinha(20);
+                    printf("Digite o segundo numero:\n");
+                    scanf("%f", &b);
+                    criarlinha(34);
                     printf("%.2f %c %.2f = %.4f\n", a, op, b, potencia(a,b));
-                    criarlinha(20);
+                    criarlinha(34);
                     a = potencia(a,b);
+                    cont++;
+                    historico[cont][0] = 0;
                     historico[cont][1] = 5;
                     historico[cont][INDICE_RESULTADO] = a;
+
+                    break;
+                case 'r':
+                    criarlinha(34);
+                    printf("Raiz quadrada de %.2f e: %.4f\n", a, sqrt(a));
+                    criarlinha(34);
+                    a = sqrt(a);
                     cont++;
+                    historico[cont][0] = 0;
+                    historico[cont][1] = 6;
+                    historico[cont][INDICE_RESULTADO] = a;
+            
                     break;
                 default:
                     printf("Operacao invalida! Digite novamente\n");
                     break;
 
             }
-            printf("Digite a operacao (+, -, *, /, ^): \nPara sair, digite 's'\n");
+            imprimeListaDePalavrasOPBasica(listadeoperacoesbasicas, NUMERO_DE_OPERACOES_BASICAS);
+            printf("Para sair, digite 's'\n");
                 scanf(" %c", &op);
                 if ((op == 's') || (op == 'S')) {
                     break;
-                } else if ((op == '+') || (op == '-') || (op == '*') || (op == '/') || (op == '^')) {
-                    historico[cont][0] = 1;
-                    printf("Digite o proximo numero:\n");
-                        scanf("%f", &b);
-                }
+                } 
     }
 }
 
@@ -652,93 +744,88 @@ void funcoesmatematicas ()
 {
   int a, b, esc = 0;
   char op;
+  char listadefuncoesmatematicas[NUMERO_DE_FUNCOES_MATEMATICAS][MAX_TAMANHO_DA_PALAVRA] = {"MMC", "MDC", "Fatorial"};  
 
-  printf
-    ("Digite a operacao (1: MMC, 2: MDC, 3: Fatorial): \n");
-  scanf (" %c", &op);
+  printf("Voce escolheu funcoes matematicas!\n");
+    criarlinha(34);
 
   while (1 == 1)
     {
       switch (op)
 	{
+	case '0':
+	  criarlinha (20);
+        printf ("Digite o primeiro numero:\n");
+        scanf ("%d", &a);
+        printf ("Digite o segundo numero:\n");
+        scanf ("%d", &b);
+
+        int cont1, i, mmc;
+        for (i = 2; i <= b; i++)
+            {
+            cont1 = a * i;
+            if ((cont1 % b) == 0)
+            {
+            mmc = cont1;
+            i = b + 1;
+            }
+            }
+            cont++;
+            historico[cont][0] = 1;
+            historico[cont][1] = 0;
+            historico[cont][INDICE_RESULTADO] = mmc;
+            printf ("O mmc eh: %d\n", mmc);
+        break;
 
 	case '1':
-	  criarlinha (20);
-	  printf ("Digite o primeiro numero:\n");
-	  scanf ("%d", &a);
-	  printf ("Digite o segundo numero:\n");
-	  scanf ("%d", &b);
+        criarlinha (20);
+        printf ("Digite o primeiro numero:\n");
+        scanf ("%d", &a);
+        printf ("Digite o segundo numero:\n");
+        scanf ("%d", &b);
 
-	  int cont, i, mmc;
-	  for (i = 2; i <= b; i++)
-	    {
-	      cont = a * i;
-	      if ((cont % b) == 0)
-		{
-		  mmc = cont;
-		  i = b + 1;
-		}
-	      printf ("O mmc C): %d\n", mmc);
-	    }
+        while (a != b)
+            {
+            if (a > b)
+            {
+            a = a - b;
+            }
+            else
+            b = b - a;
+            }
+            cont++;
+            historico[cont][0] = 1;
+            historico[cont][1] = 1;
+            historico[cont][INDICE_RESULTADO] = a;
+        printf ("O mC!ximo divisor comum eh: %d \n", a);
+        break;
 
-	  historico[cont][1] = 1;
-	  historico[cont][INDICE_RESULTADO] = a;
-	  cont++;
-	  break;
+    case '2':
+        criarlinha (20);
+        int f, a;
+        printf ("Digite o numero: ");
+        scanf ("%d", &a);
+        for (f = 1; a > 1; a--) {
+            f = f * a;
+        }
+            cont++;
+            historico[cont][0] = 1;
+            historico[cont][1] = 2;
+            historico[cont][INDICE_RESULTADO] = f;
+        printf ("O fatorial eh: %d", f);
+        break;
+    
 
-	case '2':
-	  criarlinha (20);
-	  printf ("Digite o primeiro numero:\n");
-	  scanf ("%d", &a);
-	  printf ("Digite o segundo numero:\n");
-	  scanf ("%d", &b);
-
-	  while (a != b)
-	    {
-	      if (a > b)
-		{
-		  a = a - b;
-		}
-	      else
-		b = b - a;
-	    }
-	
-      printf ("O mC!ximo divisor comum C): %d \n", a);
-
-      historico[cont][1] = 1;
-      historico[cont][INDICE_RESULTADO] = a;
-      cont++;
-      break;
-
-case '3':
-      criarlinha (20);
-      int f, a;
-      printf ("Digite o numero: ");
-      scanf ("%d", &a);
-      for (f = 1; a > 1; a = a - 1) {
-	    f = f * a;
-      }
-      printf ("O fatorial eh: %d", f);
-
-      historico[cont][1] = 1;
-      historico[cont][INDICE_RESULTADO] = a;
-      cont++;
-      break;
-
-}
     }
-  printf
-    ("1: MMC, 2: MDC, 3: Fatorial: \nPara sair, digite 's'\n");
-  scanf (" %c", &op);
-  if ((op == 's') || (op == 'S'))
+    imprimeListaDePalavras(listadefuncoesmatematicas, NUMERO_DE_FUNCOES_MATEMATICAS);
+    printf("Para sair, digite 's'\n");
+    scanf (" %c", &op);
+    if ((op == 's') || (op == 'S'))
     {
+        break;
     }
-  else if ((op == '1') || (op == '2') || (op == '3'))
-    {
-      historico[cont][0] = 1;
-      printf ("Digite o proximo numero:\n");
-      scanf ("%d", &b);
     }
+
 }
 
 
@@ -766,26 +853,23 @@ int main(){
     while(escolha != 4){
         if (cont >= 20) {
             printf("Mais de 20 operacoes realizadas! O historico foi apagado.\n");
-            cont = 0;
+            cont = -1;
         }
         switch(escolha) {
             case 0:
-                historico[cont][0] = 1;
                 operacoesbasicas();
                 break;
             case 1:
-                historico[cont][0] = 2;
                 funcoesmatematicas();
                 break;
             case 2:
-                historico[cont][0] = 3;
                 defineCalculoDeFiguras();
                 break;
             case 3:
                 printf("[1] Apagar historico de operacoes\n[2] Ler historico\n");
                 scanf("%d", &aux);
                 if (aux == 1) {
-                    cont = 0;
+                    cont = -1;
                 } else {
                     lerhistorico();
                 }
